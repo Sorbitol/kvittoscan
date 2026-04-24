@@ -1,0 +1,239 @@
+@use '../../../styles/variables' as *;
+
+.screen {
+  padding-bottom: 20px;
+}
+
+.page-label {
+  padding: 14px 20px 0;
+  @extend %label;
+}
+
+.page-title {
+  padding: 4px 20px 0;
+  font-family: $font-serif;
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: $ink;
+}
+
+%label {
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: $muted-light;
+  font-weight: 500;
+}
+
+.label {
+  @extend %label;
+}
+
+.search-bar {
+  margin: 12px 20px 0;
+  background: $surface;
+  border: 1px solid $hairline;
+  border-radius: 14px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  font-family: $font-sans;
+  color: $ink;
+
+  &::placeholder { color: $muted-light; }
+}
+
+.search-clear {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+}
+
+.filter-scroll {
+  display: flex;
+  gap: 8px;
+  padding: 12px 20px 0;
+  overflow-x: auto;
+}
+
+.filter-chip {
+  flex: 0 0 auto;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: $surface;
+  border: 1px solid $hairline;
+  color: #4A4E48;
+  font-size: 12.5px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: $font-sans;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all $t-fast;
+
+  &--active {
+    background: $ink;
+    border-color: $ink;
+    color: $bg;
+  }
+}
+
+.filter-panel {
+  margin: 14px 20px 0;
+  background: $surface;
+  border: 1px solid $hairline;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.pill-group {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.pill {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: transparent;
+  border: 1px solid $hairline-dark;
+  color: #4A4E48;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: $font-sans;
+  transition: all $t-fast;
+
+  &--active {
+    background: $ink;
+    border-color: $ink;
+    color: $bg;
+  }
+}
+
+.suggestions {
+  padding: 22px 20px 0;
+
+  .suggestion-pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+}
+
+.suggestion-pill {
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: $surface;
+  border: 1px solid $hairline;
+  font-size: 13px;
+  color: #4A4E48;
+  cursor: pointer;
+  font-family: $font-sans;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background $t-fast;
+
+  &:active { background: $field-bg; }
+}
+
+.results-header {
+  padding: 22px 20px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sort-label {
+  font-size: 11.5px;
+  color: $muted-light;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.results-list {
+  margin: 0 20px;
+  background: $surface;
+  border-radius: 16px;
+  border: 1px solid $hairline;
+  overflow: hidden;
+}
+
+.result-row {
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 13px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: background $t-fast;
+
+  &:active { background: $field-bg; }
+
+  &__icon {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    background: $field-bg;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+
+  &__info { flex: 1; min-width: 0; }
+
+  &__name {
+    font-size: 13.5px;
+    color: $ink;
+    font-weight: 500;
+    margin-bottom: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__meta { font-size: 11px; color: $muted-light; }
+
+  &__total { text-align: right; }
+
+  &__total-label { font-size: 10.5px; color: $muted-light; margin-top: 2px; }
+}
+
+.highlight {
+  background: $accent-bg;
+  color: $accent;
+  padding: 0 2px;
+  border-radius: 3px;
+}
+
+.hairline {
+  height: 1px;
+  background: $hairline;
+}
+
+.empty-state {
+  padding: 40px 20px;
+  text-align: center;
+
+  &__text { font-size: 14px; color: $muted-light; margin-bottom: 4px; }
+  &__sub { font-size: 12px; color: #B0B4AE; }
+}

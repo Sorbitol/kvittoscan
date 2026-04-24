@@ -1,0 +1,187 @@
+@use '../../../styles/variables' as *;
+
+.screen {
+  padding-bottom: 20px;
+}
+
+.topbar {
+  padding: 14px 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  color: $ink;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 14px;
+  padding: 0;
+  cursor: pointer;
+  font-family: $font-sans;
+}
+
+.icon-btn {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: $surface;
+  border: 1px solid $hairline;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  color: $ink;
+}
+
+.item-header {
+  padding: 16px 20px 0;
+}
+
+.label {
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: $muted-light;
+  font-weight: 500;
+}
+
+.item-name {
+  margin: 6px 0 0;
+  font-family: $font-serif;
+  font-size: 30px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: $ink;
+}
+
+.item-meta {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: $muted-light;
+}
+
+.stats-grid {
+  padding: 22px 20px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.stat-card {
+  background: $surface;
+  border: 1px solid $hairline;
+  border-radius: 14px;
+  padding: 14px;
+
+  &--accent {
+    background: $accent-bg;
+    border-color: $accent-border;
+  }
+
+  &--accent__label { color: $accent; }
+
+  &__sub {
+    font-size: 10.5px;
+    color: $accent;
+    margin-top: 4px;
+  }
+
+  .label { display: block; margin-bottom: 6px; }
+}
+
+.stat-number {
+  font-size: 20px;
+  font-family: $font-serif;
+  font-weight: 400;
+  color: $ink;
+}
+
+.chart-section {
+  padding: 22px 20px 0;
+}
+
+.chart-card {
+  background: $surface;
+  border: 1px solid $hairline;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.chart-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 80px;
+}
+
+.chart-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.chart-bar {
+  width: 100%;
+  background: #D8D5CC;
+  border-radius: 3px;
+
+  &__price {
+    font-size: 9px;
+    color: $muted-light;
+  }
+
+  &--min { background: $accent; }
+}
+
+.chart-dates {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.chart-date {
+  flex: 1;
+  font-size: 9px;
+  color: $muted-light;
+  text-align: center;
+}
+
+.purchases-section {
+  padding: 22px 20px 0;
+}
+
+.purchase-list {
+  background: $surface;
+  border: 1px solid $hairline;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.purchase-row {
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: background $t-fast;
+
+  &:active { background: $field-bg; }
+
+  &__info { flex: 1; }
+  &__store { font-size: 13.5px; color: $ink; font-weight: 500; }
+  &__date { font-size: 11.5px; color: $muted-light; margin-top: 2px; }
+}
+
+.hairline {
+  height: 1px;
+  background: $hairline;
+}

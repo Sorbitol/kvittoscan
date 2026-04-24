@@ -1,0 +1,56 @@
+<div class="scan-screen">
+  <!-- Camera viewfinder -->
+  <video #videoEl class="scan-screen__video" autoplay playsinline muted></video>
+
+  <!-- Receipt mock (shown when no camera) -->
+  <div class="scan-screen__bg"></div>
+
+  <!-- Scan frame corners -->
+  <div class="scan-frame" [class.scan-frame--captured]="captured()">
+    <div class="corner corner--tl"></div>
+    <div class="corner corner--tr"></div>
+    <div class="corner corner--bl"></div>
+    <div class="corner corner--br"></div>
+
+    @if (!captured()) {
+      <div class="scan-line"></div>
+    }
+  </div>
+
+  <!-- Top controls -->
+  <div class="scan-controls-top">
+    <button class="scan-btn" (click)="close()" [attr.aria-label]="lang.t('Stäng', 'Close')">
+      <app-icon name="close" [size]="20" color="#fff"/>
+    </button>
+    <button class="scan-btn" (click)="toggleFlash()" [attr.aria-label]="lang.t('Blixt', 'Flash')"
+            [class.scan-btn--active]="flashOn()">
+      <app-icon name="flash" [size]="20" color="#fff"/>
+    </button>
+  </div>
+
+  <!-- Hint pill -->
+  <div class="scan-hint">
+    <app-icon name="scan-corners" [size]="14" color="#D9F29A"/>
+    {{ captured()
+      ? lang.t('Kvitto fångat', 'Receipt captured')
+      : lang.t('Rikta kameran mot kvittot', 'Point camera at receipt') }}
+  </div>
+
+  <!-- Bottom controls -->
+  <div class="scan-controls-bottom">
+    <button class="scan-btn" (click)="openGallery()" [attr.aria-label]="lang.t('Galleri', 'Gallery')">
+      <app-icon name="gallery" [size]="22" color="#fff"/>
+    </button>
+
+    <button class="shutter" (click)="capture()" [disabled]="captured()"
+            [attr.aria-label]="lang.t('Ta foto', 'Capture')">
+    </button>
+
+    <button class="scan-btn scan-btn--text" [attr.aria-label]="lang.t('Flera', 'Multi')">
+      <span>{{ lang.t('Flera', 'Multi') }}</span>
+    </button>
+  </div>
+
+  <!-- Hidden file input for gallery -->
+  <input #fileInput type="file" accept="image/*" class="sr-only" (change)="onFileSelected($event)">
+</div>

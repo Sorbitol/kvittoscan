@@ -1,0 +1,123 @@
+@if (!reviewMode()) {
+  <!-- Processing state -->
+  <div class="screen">
+    <div class="back-row">
+      <button class="back-btn" (click)="cancel()">
+        <app-icon name="back" [size]="18"/>
+        {{ lang.t('Avbryt', 'Cancel') }}
+      </button>
+    </div>
+
+    <div class="processing-content">
+      <span class="label">{{ lang.t('Bearbetar', 'Processing') }}</span>
+      <h2 class="processing-title">
+        {{ lang.t('Ett ögonblick — vi läser ditt kvitto.', 'One moment — reading your receipt.') }}
+      </h2>
+
+      <div class="receipt-thumb">
+        <div class="receipt-thumb__sweep"></div>
+      </div>
+
+      <div class="steps">
+        @for (s of steps; track $index) {
+          <div class="step">
+            <div class="step__indicator"
+                 [class.step__indicator--done]="isStepDone($index)"
+                 [class.step__indicator--active]="isStepActive($index)">
+              @if (isStepDone($index)) {
+                <app-icon name="check" [size]="14" color="#fff"/>
+              } @else if (isStepActive($index)) {
+                <span class="step__dot"></span>
+              }
+            </div>
+            <span class="step__label"
+                  [class.step__label--done]="isStepDone($index)"
+                  [class.step__label--active]="isStepActive($index)">
+              {{ lang.lang() === 'sv' ? s.sv : s.en }}
+            </span>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+} @else {
+  <!-- Review state -->
+  <div class="screen screen--scroll">
+    <div class="review-topbar">
+      <button class="text-btn" (click)="cancel()">{{ lang.t('Avbryt', 'Cancel') }}</button>
+      <span class="label">{{ lang.t('Granska', 'Review') }}</span>
+      <div style="width:50px"></div>
+    </div>
+
+    <h1 class="review-title">{{ lang.t('Stämmer det här?', 'Does this look right?') }}</h1>
+    <p class="review-subtitle">
+      {{ lang.t('6 varor hittades · tryck för att redigera', '6 items found · tap to edit') }}
+    </p>
+
+    <!-- Store card -->
+    <div class="store-card">
+      <app-store-mark name="ICA" [size]="44" category="Groceries"/>
+      <div class="store-card__info">
+        <div class="store-card__name">ICA Maxi</div>
+        <div class="store-card__address">Kungsgatan 32, Stockholm</div>
+      </div>
+      <div class="store-card__date">22 apr · 17:42</div>
+    </div>
+
+    <!-- Items list -->
+    <div class="items-list">
+      @for (item of items(); track $index; let last = $last) {
+        <div class="item-row">
+          <div class="item-row__main">
+            <div class="item-row__name">
+              {{ item.name }}
+              @if (item.confidence < 0.95) {
+                <span class="low-conf-badge">?</span>
+              }
+            </div>
+            <div class="item-row__conf">
+              {{ lang.t('Säkerhet', 'Confidence') }} {{ (item.confidence * 100).toFixed(0) }}%
+            </div>
+          </div>
+          <app-kr [v]="item.price" [size]="14"/>
+          <app-icon name="chevron" [size]="14" color="#B8B5AC"/>
+        </div>
+        @if (!last) { <div class="hairline hairline--inset"></div> }
+      }
+    </div>
+
+    <!-- Total -->
+    <div class="total-row">
+      <span class="total-row__label">{{ lang.t('Totalt', 'Total') }}</span>
+      <app-kr [v]="total()" [size]="20"/>
+    </div>
+
+    <!-- Category selection -->
+    <div class="category-section">
+      <span class="label" style="display:block; margin-bottom:8px">{{ lang.t('Kategori', 'Category') }}</span>
+      <div class="category-pills">
+        @for (cat of (lang.lang() === 'sv' ? categories : categoriesEn); track $index) {
+          <button class="cat-pill"
+                  [class.cat-pill--active]="selectedCategory() === $index"
+                  (click)="selectedCategory.set($index)">
+            @if ($index === 0) {
+              <app-icon name="sparkle" [size]="12" color="#D9F29A"/>
+            }
+            {{ cat }}
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="review-actions">
+      <app-btn variant="secondary" size="lg" style="flex:1; justify-content:center">
+        {{ lang.t('Redigera mer', 'Edit more') }}
+      </app-btn>
+      <app-btn variant="primary" size="lg" icon="check" style="flex:2; justify-content:center"
+               (clicked)="saveReceipt()">
+        {{ lang.t('Spara kvitto', 'Save receipt') }}
+      </app-btn>
+    </div>
+  </div>
+}

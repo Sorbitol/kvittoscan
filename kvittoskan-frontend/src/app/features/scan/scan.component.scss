@@ -1,0 +1,124 @@
+@use '../../../styles/variables' as *;
+
+.scan-screen {
+  position: absolute;
+  inset: 0;
+  background: #0A0B0A;
+  overflow: hidden;
+
+  &__video {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+
+  &__bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 40%, #2A2826 0%, #0A0B0A 80%);
+    pointer-events: none;
+  }
+}
+
+.scan-frame {
+  position: absolute;
+  top: 20%; left: 12%; right: 12%; bottom: 28%;
+  pointer-events: none;
+  transition: transform 0.4s;
+
+  &--captured { transform: scale(0.97); }
+}
+
+.corner {
+  position: absolute;
+  width: 28px; height: 28px;
+  border-color: $scan-green;
+  border-style: solid;
+  border-width: 0;
+
+  &--tl { top: 0; left: 0; border-top-width: 2px; border-left-width: 2px; }
+  &--tr { top: 0; right: 0; border-top-width: 2px; border-right-width: 2px; }
+  &--bl { bottom: 0; left: 0; border-bottom-width: 2px; border-left-width: 2px; }
+  &--br { bottom: 0; right: 0; border-bottom-width: 2px; border-right-width: 2px; }
+}
+
+.scan-line {
+  position: absolute;
+  left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, $scan-green, transparent);
+  box-shadow: 0 0 12px $scan-green;
+  animation: scanline 2s ease-in-out infinite;
+}
+
+.scan-controls-top {
+  position: absolute;
+  top: 50px; left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 16px;
+}
+
+.scan-hint {
+  position: absolute;
+  top: 110px;
+  left: 50%; transform: translateX(-50%);
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(20px);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.scan-controls-bottom {
+  position: absolute;
+  bottom: 50px; left: 0; right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 30px;
+}
+
+.scan-btn {
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  border: none;
+  backdrop-filter: blur(20px);
+  color: #fff;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background $t-fast;
+
+  &--active { background: rgba(255,255,255,0.25); }
+  &--text { font-size: 11px; font-weight: 500; flex-direction: column; }
+}
+
+.shutter {
+  width: 78px; height: 78px;
+  border-radius: 50%;
+  background: #fff;
+  border: 4px solid rgba(255,255,255,0.3);
+  outline: none;
+  cursor: pointer;
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.5);
+  transition: transform $t-fast;
+
+  &:active { transform: scale(0.95); }
+  &:disabled { opacity: 0.6; }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+}

@@ -1,0 +1,58 @@
+// Nordic minimal design tokens
+
+// Colors
+$bg: #FAFAF7;
+$surface: #FFFFFF;
+$ink: #0F1110;
+$muted: #6B6F6A;
+$muted-light: #8A8F88;
+$hairline: #EDEBE4;
+$hairline-dark: #E0DED6;
+$field-bg: #F3F1E9;
+
+// Accent — sage/olive
+$accent: #4E5E3F;
+$accent-bg: #EDF0E4;
+$accent-border: #DDE3D0;
+
+// Warm amber (savings/alert)
+$amber: #8B6A2E;
+$amber-bg: #F5EADB;
+
+// Category palette
+$cat-groceries-bg: #EDF0E4;
+$cat-groceries-fg: #4E5E3F;
+$cat-health-bg: #EFE6EC;
+$cat-health-fg: #6A4F65;
+$cat-beverages-bg: #E4ECEF;
+$cat-beverages-fg: #3F565E;
+$cat-home-bg: #F2ECDF;
+$cat-home-fg: #6A573A;
+
+// Chart colors
+$chart-groceries: #7A8F6A;
+$chart-home: #B9A37A;
+$chart-health: #8F7A90;
+$chart-beverages: #6E8890;
+$chart-transport: #A0826B;
+
+// Scan accent
+$scan-green: #D9F29A;
+
+// Typography
+$font-sans: 'Instrument Sans', system-ui, -apple-system, sans-serif;
+$font-serif: 'Instrument Serif', Georgia, serif;
+
+// Spacing
+$r-sm: 10px;
+$r-md: 14px;
+$r-lg: 16px;
+$r-xl: 20px;
+$r-full: 999px;
+
+// Tab bar height
+$tab-bar-height: 83px;
+
+// Transitions
+$t-fast: 0.15s ease;
+$t-std: 0.2s ease;

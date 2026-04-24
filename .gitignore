@@ -1,0 +1,22 @@
+# Node / Angular
+node_modules/
+dist/
+.angular/
+out-tsc/
+coverage/
+*.log
+
+# .NET
+bin/
+obj/
+*.user
+.vs/
+
+# SQLite
+*.db
+*.db-shm
+*.db-wal
+
+# OS
+.DS_Store
+Thumbs.db

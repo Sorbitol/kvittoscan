@@ -1,0 +1,87 @@
+<div class="screen">
+  <!-- Top nav -->
+  <div class="topbar">
+    <button class="back-btn" (click)="back()">
+      <app-icon name="back" [size]="18"/>
+      {{ lang.t('Sök', 'Search') }}
+    </button>
+    <button class="icon-btn"><app-icon name="bell" [size]="18"/></button>
+  </div>
+
+  <!-- Item header -->
+  <div class="item-header">
+    <span class="label">{{ lang.t('Vara', 'Item') }}</span>
+    <h1 class="item-name">{{ itemName() }}</h1>
+    <p class="item-meta">
+      {{ lang.t(
+        'Köpt ' + purchases().length + ' gånger · senaste ' + (purchases()[0]?.date | formatDate),
+        'Bought ' + purchases().length + ' times · last on ' + (purchases()[0]?.date | formatDate)
+      ) }}
+    </p>
+  </div>
+
+  <!-- Stats grid -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <span class="label">{{ lang.t('Totalt spenderat', 'Total spent') }}</span>
+      <app-kr [v]="totalSpent()" [size]="20"/>
+    </div>
+    <div class="stat-card">
+      <span class="label">{{ lang.t('Snittpris', 'Avg. price') }}</span>
+      <app-kr [v]="avgPrice()" [size]="20"/>
+    </div>
+    <div class="stat-card stat-card--accent">
+      <span class="label stat-card--accent__label">{{ lang.t('Lägsta pris', 'Lowest price') }}</span>
+      <app-kr [v]="minPrice()" [size]="20"/>
+      <div class="stat-card__sub">{{ lang.t('hos', 'at') }} {{ minStore() }}</div>
+    </div>
+    <div class="stat-card">
+      <span class="label">{{ lang.t('Butiker', 'Stores') }}</span>
+      <div class="stat-number">{{ uniqueStores() }}</div>
+    </div>
+  </div>
+
+  <!-- Price history chart -->
+  <div class="chart-section">
+    <span class="label" style="display:block; margin-bottom:10px">{{ lang.t('Prishistorik', 'Price history') }}</span>
+    <div class="chart-card">
+      <div class="chart-bars">
+        @for (p of purchases(); track $index) {
+          <div class="chart-col">
+            <div class="chart-bar__price">{{ p.price.toFixed(0) }}</div>
+            <div class="chart-bar"
+                 [style.height.px]="barHeight(p.price)"
+                 [class.chart-bar--min]="p.price === minPrice()">
+            </div>
+          </div>
+        }
+      </div>
+      <div class="chart-dates">
+        @for (p of purchases(); track $index) {
+          <div class="chart-date">{{ dayLabel(p.date) }}</div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- All purchases -->
+  <div class="purchases-section">
+    <span class="label" style="display:block; margin-bottom:10px">{{ lang.t('Alla köp', 'All purchases') }}</span>
+    <div class="purchase-list">
+      @for (p of purchases(); track $index; let last = $last) {
+        <button class="purchase-row" (click)="goToReceipt(p.receiptId)">
+          <app-store-mark [name]="p.store" [size]="34" [category]="p.category"/>
+          <div class="purchase-row__info">
+            <div class="purchase-row__store">{{ p.store }}</div>
+            <div class="purchase-row__date">{{ p.date | formatDate }}</div>
+          </div>
+          <app-kr [v]="p.price" [size]="13"/>
+          <app-icon name="chevron" [size]="14" color="#B8B5AC"/>
+        </button>
+        @if (!last) { <div class="hairline" style="margin-left:60px"></div> }
+      }
+    </div>
+  </div>
+
+  <div style="height:24px"></div>
+</div>

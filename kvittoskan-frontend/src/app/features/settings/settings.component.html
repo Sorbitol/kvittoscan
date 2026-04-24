@@ -1,0 +1,108 @@
+<div class="screen">
+  <div class="page-label">{{ lang.t('Konto', 'Account') }}</div>
+  <h1 class="page-title">{{ lang.t('Inställningar', 'Settings') }}</h1>
+
+  <!-- Profile card -->
+  <div class="profile-card">
+    <div class="avatar">E</div>
+    <div class="profile-card__info">
+      <div class="profile-card__name">Elin Lindqvist</div>
+      <div class="profile-card__email">elin&#64;hemma.se</div>
+    </div>
+    <app-icon name="chevron" [size]="16" color="#B8B5AC"/>
+  </div>
+
+  <!-- Household -->
+  <div class="section">
+    <span class="label">{{ lang.t('Hushåll', 'Household') }}</span>
+    <div class="household-card">
+      <div class="household-card__header">
+        <app-icon name="users" [size]="20" color="#4E5E3F"/>
+        <div class="household-card__text">
+          <div class="household-card__name">Familjen Lindqvist</div>
+          <div class="household-card__members">3 {{ lang.t('medlemmar delar kvitton', 'members sharing receipts') }}</div>
+        </div>
+      </div>
+      <div class="avatars">
+        @for (m of members; track $index) {
+          <div class="member-avatar" [style.background]="m.color" [style.color]="m.fg"
+               [style.margin-left]="$index === 0 ? '0' : '-10px'">
+            {{ m.initial }}
+          </div>
+        }
+        <button class="add-member" style="margin-left:-10px">
+          <app-icon name="plus" [size]="14" color="#8A8F88"/>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Preferences -->
+  <div class="section">
+    <span class="label">{{ lang.t('Preferenser', 'Preferences') }}</span>
+    <div class="settings-group">
+      @for (row of preferenceRows; track row.sv; let last = $last) {
+        <div class="settings-row" (click)="row.sv === 'Automatisk matchning' ? autoCategorize.update(v => !v) : null">
+          <div class="settings-row__icon-wrap">
+            <app-icon [name]="row.icon" [size]="15" color="#6B6F6A"/>
+          </div>
+          <div class="settings-row__title">{{ lang.lang() === 'sv' ? row.sv : row.en }}</div>
+          @if (row.detail) {
+            <span class="settings-row__detail">{{ row.detail }}</span>
+          }
+          @if (row.toggle !== undefined) {
+            <button class="toggle" [class.toggle--on]="autoCategorize()"
+                    (click)="autoCategorize.update(v => !v)">
+              <div class="toggle__knob"></div>
+            </button>
+          } @else {
+            <app-icon name="chevron" [size]="14" color="#B8B5AC"/>
+          }
+        </div>
+        @if (!last) { <div class="hairline" style="margin-left:50px"></div> }
+      }
+    </div>
+  </div>
+
+  <!-- Data -->
+  <div class="section">
+    <span class="label">{{ lang.t('Data', 'Data') }}</span>
+    <div class="settings-group">
+      @for (row of dataRows; track row.sv; let last = $last) {
+        <div class="settings-row">
+          <div class="settings-row__icon-wrap">
+            <app-icon [name]="row.icon" [size]="15" color="#6B6F6A"/>
+          </div>
+          <div class="settings-row__title">{{ lang.lang() === 'sv' ? row.sv : row.en }}</div>
+          @if (row.detail) {
+            <span class="settings-row__detail">{{ row.detail }}</span>
+          }
+          <app-icon name="chevron" [size]="14" color="#B8B5AC"/>
+        </div>
+        @if (!last) { <div class="hairline" style="margin-left:50px"></div> }
+      }
+    </div>
+  </div>
+
+  <!-- About -->
+  <div class="section">
+    <span class="label">{{ lang.t('Om', 'About') }}</span>
+    <div class="settings-group">
+      @for (row of aboutRows; track row.sv; let last = $last) {
+        <div class="settings-row" (click)="row.sv === 'Språk' ? toggleLang() : null">
+          <div class="settings-row__icon-wrap">
+            <app-icon [name]="row.icon" [size]="15" color="#6B6F6A"/>
+          </div>
+          <div class="settings-row__title">{{ lang.lang() === 'sv' ? row.sv : row.en }}</div>
+          @if (row.detail) {
+            <span class="settings-row__detail">{{ row.detail }}</span>
+          }
+          <app-icon name="chevron" [size]="14" color="#B8B5AC"/>
+        </div>
+        @if (!last) { <div class="hairline" style="margin-left:50px"></div> }
+      }
+    </div>
+  </div>
+
+  <div class="version">KVITTOSKAN · v2.4.0</div>
+</div>

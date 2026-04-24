@@ -1,0 +1,90 @@
+<div class="screen">
+  <!-- Top nav -->
+  <div class="topbar">
+    <button class="back-btn" (click)="back()">
+      <app-icon name="back" [size]="18"/>
+      {{ lang.t('Tillbaka', 'Back') }}
+    </button>
+    <div class="topbar__actions">
+      <button class="icon-btn"><app-icon name="share" [size]="18"/></button>
+      <button class="icon-btn"><app-icon name="edit" [size]="18"/></button>
+    </div>
+  </div>
+
+  <!-- Store header -->
+  <div class="store-header">
+    <app-store-mark [name]="receipt().store" [size]="56" [category]="receipt().category"/>
+    <h1 class="store-header__name">{{ receipt().store }}</h1>
+    <div class="store-header__meta">
+      {{ receipt().date | formatDate }} · {{ receipt().time }}
+    </div>
+  </div>
+
+  <!-- Total -->
+  <div class="total-section">
+    <span class="label">{{ lang.t('Totalt', 'Total') }}</span>
+    <app-kr [v]="receipt().total" [size]="48"/>
+    <div class="vat-note">
+      {{ lang.t('varav moms', 'incl. VAT') }} <app-kr [v]="receipt().vat" [size]="11" [muted]="true"/>
+    </div>
+  </div>
+
+  <!-- Meta chips -->
+  <div class="chips-row">
+    <app-chip icon="tag">{{ categoryLabel() }}</app-chip>
+    <app-chip icon="receipt">{{ receipt().items.length }} {{ lang.t('varor', 'items') }}</app-chip>
+    @if (receipt().payment) {
+      <app-chip>{{ receipt().payment }}</app-chip>
+    }
+  </div>
+
+  <div class="hairline" style="margin: 24px 20px 0"></div>
+
+  <!-- Items list -->
+  <section class="items-section">
+    <span class="label" style="display:block; margin-bottom:12px">{{ lang.t('Varor', 'Items') }}</span>
+    <div class="item-list">
+      @for (item of receipt().items; track $index; let last = $last) {
+        <div class="item-row">
+          <div class="item-row__info">
+            <div class="item-row__name">{{ itemName(item) }}</div>
+            <div class="item-row__meta">{{ itemQtyLabel(item) }} · {{ item.cat }}</div>
+          </div>
+          <app-kr [v]="itemTotal(item)" [size]="14"/>
+        </div>
+        @if (!last) { <div class="hairline"></div> }
+      }
+    </div>
+  </section>
+
+  <!-- Actions -->
+  <div class="actions-row">
+    <app-btn variant="secondary" size="md" icon="export" style="flex:1; justify-content:center">
+      {{ lang.t('Exportera', 'Export') }}
+    </app-btn>
+    <app-btn variant="secondary" size="md" icon="users" style="flex:1; justify-content:center">
+      {{ lang.t('Dela', 'Share') }}
+    </app-btn>
+  </div>
+
+  <!-- Receipt image -->
+  <div class="receipt-image-section">
+    <span class="label" style="display:block; margin-bottom:10px">{{ lang.t('Originalkvitto', 'Original receipt') }}</span>
+    <div class="receipt-image">
+      <div class="receipt-image__text">{{ receipt().store.toUpperCase() }}</div>
+      <div class="receipt-image__address">KUNGSGATAN 32 STOCKHOLM</div>
+      <div class="receipt-image__divider"></div>
+      @for (item of receipt().items.slice(0,6); track $index) {
+        <div class="receipt-image__row">
+          <span>{{ item.name.toUpperCase().slice(0,22) }}</span>
+          <span>{{ item.price.toFixed(2) }}</span>
+        </div>
+      }
+      <div class="receipt-image__divider"></div>
+      <div class="receipt-image__row receipt-image__row--total">
+        <span>TOTALT</span>
+        <span>{{ receipt().total.toFixed(2) }}</span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,85 @@
+@use 'variables' as *;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: $bg;
+  font-family: $font-sans;
+  color: $ink;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+app-root {
+  display: block;
+  width: 100%;
+  max-width: 430px;
+  height: 100dvh;
+  position: relative;
+  overflow: hidden;
+  background: $bg;
+  box-shadow: 0 0 60px rgba(0,0,0,0.12);
+}
+
+// Scrollbar hidden globally
+* {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+// Animations
+@keyframes scanline {
+  0%, 100% { top: 0; opacity: 0; }
+  10%, 90% { opacity: 1; }
+  50% { top: 100%; }
+}
+
+@keyframes sweep {
+  0% { top: -30%; }
+  100% { top: 100%; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+// Global type
+h1, h2, h3 {
+  margin: 0;
+  font-weight: 400;
+}
+
+button {
+  font-family: $font-sans;
+  cursor: pointer;
+}
+
+input {
+  font-family: $font-sans;
+}

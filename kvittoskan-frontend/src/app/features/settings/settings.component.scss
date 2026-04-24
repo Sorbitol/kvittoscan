@@ -1,0 +1,184 @@
+@use '../../../styles/variables' as *;
+
+.screen {
+  padding-bottom: 20px;
+}
+
+.page-label {
+  padding: 14px 20px 0;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: $muted-light;
+  font-weight: 500;
+}
+
+.page-title {
+  padding: 4px 20px 0;
+  font-family: $font-serif;
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: $ink;
+}
+
+.label {
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: $muted-light;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.profile-card {
+  margin: 22px 20px 0;
+  background: $surface;
+  border: 1px solid $hairline;
+  border-radius: 20px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+
+  &__info { flex: 1; }
+  &__name { font-size: 15px; font-weight: 500; color: $ink; }
+  &__email { font-size: 12px; color: $muted-light; margin-top: 2px; }
+}
+
+.avatar {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: $accent-bg;
+  color: $accent;
+  display: grid;
+  place-items: center;
+  font-family: $font-serif;
+  font-size: 26px;
+  font-style: italic;
+}
+
+.section {
+  padding: 24px 20px 0;
+}
+
+.household-card {
+  background: $surface;
+  border: 1px solid $hairline;
+  border-radius: 16px;
+  padding: 16px;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  &__text { flex: 1; }
+  &__name { font-size: 13.5px; color: $ink; font-weight: 500; }
+  &__members { font-size: 11.5px; color: $muted-light; margin-top: 2px; }
+}
+
+.avatars {
+  display: flex;
+  align-items: center;
+}
+
+.member-avatar {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 2px solid $surface;
+  display: grid;
+  place-items: center;
+  font-family: $font-serif;
+  font-size: 14px;
+  font-style: italic;
+}
+
+.add-member {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: $surface;
+  border: 1px dashed #D8D5CC;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.settings-group {
+  background: $surface;
+  border: 1px solid $hairline;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.settings-row {
+  padding: 13px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: background $t-fast;
+
+  &:active { background: $field-bg; }
+
+  &__icon-wrap {
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    background: $field-bg;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+
+  &__title {
+    flex: 1;
+    font-size: 13.5px;
+    color: $ink;
+    font-weight: 450;
+  }
+
+  &__detail {
+    font-size: 12px;
+    color: $muted-light;
+  }
+}
+
+.hairline {
+  height: 1px;
+  background: $hairline;
+}
+
+.toggle {
+  width: 40px; height: 24px;
+  border-radius: 999px;
+  background: #E0DED6;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  justify-content: flex-start;
+  transition: all $t-std;
+
+  &--on {
+    background: $accent;
+    justify-content: flex-end;
+  }
+
+  &__knob {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: #fff;
+  }
+}
+
+.version {
+  padding: 24px 20px 0;
+  text-align: center;
+  font-size: 10.5px;
+  color: #B0B4AE;
+  letter-spacing: 0.08em;
+}

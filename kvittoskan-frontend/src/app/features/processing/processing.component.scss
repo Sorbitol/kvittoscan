@@ -1,0 +1,259 @@
+@use '../../../styles/variables' as *;
+
+.screen {
+  position: absolute;
+  inset: 0;
+  background: $bg;
+  overflow: hidden;
+
+  &--scroll {
+    overflow-y: auto;
+    bottom: 0;
+  }
+}
+
+.back-row {
+  padding: 40px 20px 0;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  color: $ink;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  padding: 0;
+  cursor: pointer;
+  font-family: $font-sans;
+}
+
+.processing-content {
+  padding: 40px 28px 0;
+}
+
+.label {
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: $muted-light;
+  font-weight: 500;
+}
+
+.processing-title {
+  margin: 10px 0 30px;
+  font-family: $font-serif;
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: $ink;
+}
+
+.receipt-thumb {
+  width: 110px;
+  aspect-ratio: 0.6;
+  background: #F4F1E8;
+  border-radius: 4px;
+  transform: rotate(-2deg);
+  margin: 0 auto 40px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  position: relative;
+  overflow: hidden;
+
+  &__sweep {
+    position: absolute;
+    left: 0; right: 0;
+    height: 30%;
+    background: linear-gradient(180deg, transparent, rgba(78,94,63,0.3), transparent);
+    animation: sweep 1.5s ease-in-out infinite;
+  }
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  &__indicator {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    border: 1.5px solid #D8D5CC;
+    background: transparent;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    transition: all $t-std;
+
+    &--done { background: $accent; border-color: $accent; }
+    &--active { border-color: $accent; }
+  }
+
+  &__dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: $accent;
+    animation: pulse 1s ease-in-out infinite;
+  }
+
+  &__label {
+    font-size: 14px;
+    color: $muted-light;
+
+    &--done { color: $accent; }
+    &--active { color: $ink; font-weight: 500; }
+  }
+}
+
+// Review mode
+.review-topbar {
+  padding: 14px 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.text-btn {
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: $ink;
+  padding: 0;
+  cursor: pointer;
+  font-family: $font-sans;
+}
+
+.review-title {
+  font-family: $font-serif;
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  padding: 16px 20px 4px;
+  color: $ink;
+}
+
+.review-subtitle {
+  margin: 0;
+  padding: 0 20px 6px;
+  font-size: 13px;
+  color: $muted;
+}
+
+.store-card {
+  margin: 18px 20px 0;
+  background: $surface;
+  border-radius: 16px;
+  border: 1px solid $hairline;
+  padding: 14px 16px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+
+  &__info { flex: 1; }
+
+  &__name { font-size: 14px; font-weight: 500; color: $ink; }
+  &__address { font-size: 11.5px; color: $muted-light; margin-top: 2px; }
+  &__date { font-size: 11.5px; color: $muted-light; }
+}
+
+.items-list {
+  margin: 14px 20px 0;
+  background: $surface;
+  border-radius: 16px;
+  border: 1px solid $hairline;
+  overflow: hidden;
+}
+
+.item-row {
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &__main { flex: 1; min-width: 0; }
+
+  &__name {
+    font-size: 13.5px;
+    color: $ink;
+    font-weight: 500;
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  &__conf { font-size: 11px; color: $muted-light; }
+}
+
+.low-conf-badge {
+  font-size: 9.5px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: $amber-bg;
+  color: $amber;
+  font-weight: 500;
+}
+
+.hairline {
+  height: 1px;
+  background: $hairline;
+
+  &--inset { margin-left: 14px; }
+}
+
+.total-row {
+  margin: 14px 20px 0;
+  background: $field-bg;
+  border-radius: 16px;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__label { font-size: 13px; font-weight: 500; color: $ink; }
+}
+
+.category-section {
+  padding: 14px 20px 0;
+}
+
+.category-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cat-pill {
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: $surface;
+  border: 1px solid $hairline-dark;
+  color: #4A4E48;
+  font-size: 12.5px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: $font-sans;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all $t-fast;
+
+  &--active {
+    background: $ink;
+    border-color: $ink;
+    color: $bg;
+  }
+}
+
+.review-actions {
+  padding: 24px 20px 32px;
+  display: flex;
+  gap: 10px;
+}

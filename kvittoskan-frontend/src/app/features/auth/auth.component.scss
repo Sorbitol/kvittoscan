@@ -1,0 +1,207 @@
+@use '../../../styles/variables' as *;
+
+.auth-screen {
+  min-height: 100%;
+  padding: 40px 20px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  position: relative;
+}
+
+.lang-toggle {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  background: transparent;
+  border: 1px solid $hairline;
+  border-radius: $r-full;
+  padding: 6px 12px;
+  font-family: $font-sans;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: $muted-light;
+  cursor: pointer;
+  display: inline-flex;
+  gap: 6px;
+
+  &__active { color: $ink; font-weight: 500; }
+  &__sep { color: $hairline-dark; }
+}
+
+.brand {
+  text-align: center;
+  margin-top: 32px;
+
+  &__mark {
+    width: 56px; height: 56px;
+    margin: 0 auto 16px;
+    border-radius: 18px;
+    background: $accent;
+    color: $surface;
+    font-family: $font-serif;
+    font-style: italic;
+    font-size: 30px;
+    display: grid;
+    place-items: center;
+  }
+
+  &__wordmark {
+    font-family: $font-serif;
+    font-size: 34px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: $ink;
+  }
+
+  &__tagline {
+    margin-top: 8px;
+    font-size: 13px;
+    color: $muted;
+  }
+}
+
+.card {
+  background: $surface;
+  border: 1px solid $hairline;
+  border-radius: 20px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.tabs {
+  display: flex;
+  background: $field-bg;
+  border-radius: 12px;
+  padding: 3px;
+}
+
+.tab {
+  flex: 1;
+  padding: 9px 0;
+  border: none;
+  background: transparent;
+  border-radius: 9px;
+  font-family: $font-sans;
+  font-size: 13px;
+  font-weight: 500;
+  color: $muted;
+  cursor: pointer;
+  transition: all $t-std;
+
+  &--active {
+    background: $surface;
+    color: $ink;
+    box-shadow: 0 1px 2px rgba(15, 17, 16, 0.06);
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  &__label {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $muted-light;
+    font-weight: 500;
+  }
+
+  &__input {
+    height: 44px;
+    padding: 0 14px;
+    font-family: $font-sans;
+    font-size: 14.5px;
+    color: $ink;
+    background: $field-bg;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    outline: none;
+    transition: border-color $t-std, background $t-std;
+
+    &:focus {
+      background: $surface;
+      border-color: $accent-border;
+    }
+
+    &::placeholder { color: $muted-light; }
+  }
+
+  &__hint {
+    font-size: 11px;
+    color: $muted-light;
+  }
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: $amber-bg;
+  color: $amber;
+  border-radius: 10px;
+  font-size: 12.5px;
+
+  &__dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: $amber;
+    flex-shrink: 0;
+  }
+}
+
+.submit {
+  margin-top: 4px;
+  height: 48px;
+  border: none;
+  border-radius: 14px;
+  background: $ink;
+  color: $surface;
+  font-family: $font-sans;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: opacity $t-std, transform $t-fast;
+
+  &:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  &:not(:disabled):active { transform: scale(0.99); }
+
+  &__spinner {
+    width: 14px; height: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: $surface;
+    border-radius: 50%;
+    animation: auth-spin 0.7s linear infinite;
+  }
+}
+
+.legal {
+  text-align: center;
+  font-size: 11px;
+  color: $muted-light;
+  padding: 0 16px;
+}
+
+@keyframes auth-spin {
+  to { transform: rotate(360deg); }
+}

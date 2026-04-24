@@ -1,0 +1,69 @@
+<div class="screen">
+  <!-- Greeting header -->
+  <div class="date-label">{{ todayLabel() }}</div>
+
+  <header class="page-header">
+    <h1 class="page-title">{{ greeting() }},<br>Elin</h1>
+    <button class="avatar" aria-label="Profile">E</button>
+  </header>
+
+  <!-- Month summary card -->
+  <section class="summary-card">
+    <div class="summary-card__top">
+      <span class="label">{{ lang.t('Spenderat i April', 'Spent in April') }}</span>
+      <span class="trend">↓ 8% {{ lang.t('vs mars', 'vs March') }}</span>
+    </div>
+
+    <app-kr [v]="totalMonth" [size]="40"/>
+
+    <!-- Mini bar chart -->
+    <div class="bar-chart">
+      @for (w of weeklyStats; track w.week; let last = $last) {
+        <div class="bar-chart__bar" [class.bar-chart__bar--active]="last"
+             [style.height.px]="barHeight(w.amount)">
+        </div>
+      }
+    </div>
+    <div class="bar-chart__labels">
+      <span class="bar-chart__label">v9</span>
+      <span class="bar-chart__label">v17</span>
+    </div>
+  </section>
+
+  <!-- Category pills -->
+  <div class="section-label">{{ lang.t('Kategorier', 'Categories') }}</div>
+  <div class="category-scroll">
+    @for (cat of categories; track cat.key) {
+      <div class="category-pill">
+        <div class="category-pill__header">
+          <span class="category-dot" [style.background]="cat.color"></span>
+          <span class="category-name">{{ lang.lang() === 'sv' ? cat.sv : cat.en }}</span>
+        </div>
+        <app-kr [v]="cat.amount" [size]="16"/>
+        <div class="category-count">{{ cat.count }} {{ lang.t('kvitton', 'receipts') }}</div>
+      </div>
+    }
+  </div>
+
+  <!-- Recent receipts -->
+  <div class="receipts-header">
+    <span class="label">{{ lang.t('Senaste kvitton', 'Recent receipts') }}</span>
+    <button class="see-all" (click)="goToSearch()">{{ lang.t('Se alla', 'See all') }} →</button>
+  </div>
+
+  <div class="receipt-list">
+    @for (r of recentReceipts(); track r.id; let last = $last) {
+      <button class="receipt-row" (click)="goToReceipt(r.id!)">
+        <app-store-mark [name]="r.store" [size]="40" [category]="r.category"/>
+        <div class="receipt-row__info">
+          <div class="receipt-row__store">{{ r.store }}</div>
+          <div class="receipt-row__meta">
+            {{ r.date | formatDate }} · {{ r.items.length }} {{ lang.t('varor', 'items') }}
+          </div>
+        </div>
+        <app-kr [v]="r.total" [size]="15"/>
+      </button>
+      @if (!last) { <div class="hairline hairline--inset"></div> }
+    }
+  </div>
+</div>

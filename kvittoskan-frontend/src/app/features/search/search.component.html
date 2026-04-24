@@ -1,0 +1,148 @@
+<div class="screen">
+  <div class="page-label">{{ lang.t('Sök', 'Search') }}</div>
+  <h1 class="page-title">{{ lang.t('Hitta dina varor', 'Find your items') }}</h1>
+
+  <!-- Search bar -->
+  <div class="search-bar">
+    <app-icon name="search" [size]="18" color="#8A8F88"/>
+    <input
+      class="search-input"
+      [(ngModel)]="query"
+      [placeholder]="lang.t('Sök varor, butiker…', 'Search items, stores…')"
+      autocomplete="off"
+    />
+    @if (query()) {
+      <button class="search-clear" (click)="query.set('')">
+        <app-icon name="close" [size]="16" color="#8A8F88"/>
+      </button>
+    }
+  </div>
+
+  <!-- Filter pills -->
+  <div class="filter-scroll">
+    <button class="filter-chip" [class.filter-chip--active]="showFilters()"
+            (click)="toggleFilters()">
+      <app-icon name="filter" [size]="12"/>
+      {{ lang.t('Filter', 'Filters') }}
+    </button>
+    <button class="filter-chip" [class.filter-chip--active]="selectedPeriod() !== 'all'">
+      <app-icon name="calendar" [size]="12"/>
+      {{ selectedPeriod() === '30d' ? lang.t('Senaste 30 dagar', 'Last 30 days') : lang.t('Alla datum', 'All dates') }}
+    </button>
+    <button class="filter-chip" [class.filter-chip--active]="selectedCategory() !== 'all'">
+      <app-icon name="tag" [size]="12"/>
+      {{ selectedCategory() === 'all' ? lang.t('Alla kategorier', 'All categories') : selectedCategory() }}
+    </button>
+    <button class="filter-chip" [class.filter-chip--active]="selectedStore() !== 'all'">
+      {{ selectedStore() === 'all' ? lang.t('Alla butiker', 'All stores') : selectedStore() }}
+    </button>
+  </div>
+
+  <!-- Filter panel -->
+  @if (showFilters()) {
+    <div class="filter-panel">
+      <span class="label">{{ lang.t('Kategori', 'Category') }}</span>
+      <div class="pill-group">
+        <button class="pill" [class.pill--active]="selectedCategory() === 'all'"
+                (click)="selectedCategory.set('all')">
+          {{ lang.t('Alla', 'All') }}
+        </button>
+        @for (cat of categories; track cat.key) {
+          <button class="pill" [class.pill--active]="selectedCategory() === cat.sv || selectedCategory() === cat.en"
+                  (click)="selectedCategory.set(lang.lang() === 'sv' ? cat.sv : cat.en)">
+            {{ lang.lang() === 'sv' ? cat.sv : cat.en }}
+          </button>
+        }
+      </div>
+
+      <span class="label" style="display:block; margin-top:14px">{{ lang.t('Butik', 'Store') }}</span>
+      <div class="pill-group">
+        <button class="pill" [class.pill--active]="selectedStore() === 'all'"
+                (click)="selectedStore.set('all')">{{ lang.t('Alla', 'All') }}</button>
+        @for (store of stores; track store) {
+          <button class="pill" [class.pill--active]="selectedStore() === store"
+                  (click)="selectedStore.set(store)">{{ store }}</button>
+        }
+      </div>
+
+      <span class="label" style="display:block; margin-top:14px">{{ lang.t('Period', 'Period') }}</span>
+      <div class="pill-group">
+        @for (p of periods; track p.v) {
+          <button class="pill" [class.pill--active]="selectedPeriod() === p.v"
+                  (click)="selectedPeriod.set(p.v)">
+            {{ lang.lang() === 'sv' ? p.sv : p.en }}
+          </button>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Suggestions -->
+  @if (!query()) {
+    <div class="suggestions">
+      <span class="label">{{ lang.t('Populära sökningar', 'Popular searches') }}</span>
+      <div class="suggestion-pills">
+        @for (s of (lang.lang() === 'sv' ? suggestions.sv : suggestions.en); track s) {
+          <button class="suggestion-pill" (click)="query.set(s)">
+            <app-icon name="search" [size]="12" color="#8A8F88"/>
+            {{ s }}
+          </button>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Results header -->
+  <div class="results-header">
+    <span class="label">
+      {{ query()
+        ? lang.t(groupedItems().length + ' träffar', groupedItems().length + ' matches')
+        : lang.t('Alla varor (' + totalItemCount() + ')', 'All items (' + totalItemCount() + ')') }}
+    </span>
+    <span class="sort-label">
+      {{ lang.t('Mest köpta', 'Most bought') }}
+      <app-icon name="chevron-down" [size]="12" color="#8A8F88"/>
+    </span>
+  </div>
+
+  <!-- Results list -->
+  <div class="results-list">
+    @for (group of groupedItems().slice(0,20); track group.name; let last = $last) {
+      <button class="result-row" (click)="goToItem(group.name)">
+        <div class="result-row__icon">
+          <app-icon name="tag" [size]="16" color="#6B6F6A"/>
+        </div>
+        <div class="result-row__info">
+          <div class="result-row__name">
+            @for (part of highlightParts(group.name); track $index) {
+              @if (part.highlight) {
+                <mark class="highlight">{{ part.text }}</mark>
+              } @else {
+                {{ part.text }}
+              }
+            }
+          </div>
+          <div class="result-row__meta">
+            {{ group.occurrences.length }}× · {{ group.occurrences.length > 1 ? group.occurrences.length : 1 }}
+            {{ lang.t('butiker', 'stores') }}
+          </div>
+        </div>
+        <div class="result-row__total">
+          <app-kr [v]="group.totalSpent" [size]="13"/>
+          <div class="result-row__total-label">{{ lang.t('totalt', 'total') }}</div>
+        </div>
+        <app-icon name="chevron" [size]="14" color="#B8B5AC"/>
+      </button>
+      @if (!last) { <div class="hairline" style="margin-left:64px"></div> }
+    }
+
+    @if (groupedItems().length === 0) {
+      <div class="empty-state">
+        <div class="empty-state__text">{{ lang.t('Inga träffar', 'No matches') }}</div>
+        <div class="empty-state__sub">
+          {{ lang.t('Testa en annan sökning eller ändra filter', 'Try a different search or change filters') }}
+        </div>
+      </div>
+    }
+  </div>
+</div>

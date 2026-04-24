@@ -1,0 +1,213 @@
+@use '../../../styles/variables' as *;
+
+.screen {
+  padding-bottom: 20px;
+}
+
+.date-label {
+  padding: 18px 20px 0;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: $muted-light;
+  font-weight: 500;
+}
+
+.page-header {
+  padding: 4px 20px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.page-title {
+  font-family: $font-serif;
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: $ink;
+  line-height: 1.1;
+  white-space: pre-line;
+}
+
+.avatar {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: $accent-bg;
+  border: none;
+  color: $accent;
+  font-family: $font-serif;
+  font-size: 18px;
+  font-style: italic;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.summary-card {
+  margin: 20px 20px 0;
+  background: $surface;
+  border-radius: 20px;
+  padding: 20px;
+  border: 1px solid $hairline;
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 14px;
+  }
+}
+
+.label {
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: $muted-light;
+  font-weight: 500;
+}
+
+.trend {
+  font-size: 11px;
+  color: $accent;
+  font-weight: 500;
+}
+
+.bar-chart {
+  display: flex;
+  gap: 6px;
+  align-items: flex-end;
+  height: 44px;
+  margin-top: 18px;
+
+  &__bar {
+    flex: 1;
+    background: #E8E6DF;
+    border-radius: 2px;
+    min-height: 2px;
+
+    &--active { background: $accent; }
+  }
+
+  &__labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+  }
+
+  &__label {
+    font-size: 10px;
+    color: $muted-light;
+  }
+}
+
+.section-label {
+  padding: 18px 0 0 20px;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: $muted-light;
+  font-weight: 500;
+}
+
+.category-scroll {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 10px 20px 4px;
+}
+
+.category-pill {
+  flex: 0 0 auto;
+  background: $surface;
+  border: 1px solid $hairline;
+  border-radius: 16px;
+  padding: 12px 14px;
+  min-width: 128px;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+}
+
+.category-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.category-name {
+  font-size: 12px;
+  color: #4A4E48;
+  font-weight: 500;
+}
+
+.category-count {
+  font-size: 10.5px;
+  color: $muted-light;
+  margin-top: 4px;
+}
+
+.receipts-header {
+  padding: 22px 20px 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.see-all {
+  background: none;
+  border: none;
+  font-size: 12px;
+  color: $accent;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: $font-sans;
+}
+
+.receipt-list {
+  margin: 6px 20px 0;
+  background: $surface;
+  border-radius: 16px;
+  border: 1px solid $hairline;
+  overflow: hidden;
+}
+
+.receipt-row {
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: background $t-fast;
+
+  &:active { background: $field-bg; }
+
+  &__info { flex: 1; min-width: 0; }
+
+  &__store {
+    font-size: 14px;
+    color: $ink;
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+
+  &__meta {
+    font-size: 11.5px;
+    color: $muted-light;
+  }
+}
+
+.hairline {
+  height: 1px;
+  background: $hairline;
+
+  &--inset { margin-left: 66px; }
+}

@@ -1,0 +1,90 @@
+<div class="screen">
+  <div class="page-label">{{ lang.t('April 2026', 'April 2026') }}</div>
+
+  <header class="page-header">
+    <h1 class="page-title">{{ lang.t('Översikt', 'Insights') }}</h1>
+    <div class="period-toggle">
+      <button class="period-btn" [class.period-btn--active]="viewMode() === 'month'"
+              (click)="viewMode.set('month')">
+        {{ lang.t('Månad', 'Month') }}
+      </button>
+      <button class="period-btn" [class.period-btn--active]="viewMode() === 'year'"
+              (click)="viewMode.set('year')">
+        {{ lang.t('År', 'Year') }}
+      </button>
+    </div>
+  </header>
+
+  <!-- Total hero -->
+  <div class="hero">
+    <app-kr [v]="total" [size]="48"/>
+    <div class="hero__trend">
+      <span class="trend-badge">↓ 8%</span>
+      <span class="trend-text">{{ lang.t('mot förra månaden', 'vs last month') }}</span>
+    </div>
+  </div>
+
+  <!-- Stacked bar -->
+  <div class="stacked-bar">
+    @for (cat of categories; track cat.key) {
+      <div class="stacked-bar__segment" [style.flex]="cat.amount" [style.background]="cat.color"></div>
+    }
+  </div>
+
+  <!-- Category breakdown -->
+  <div class="section-header">
+    <span class="label">{{ lang.t('Efter kategori', 'By category') }}</span>
+  </div>
+
+  <div class="category-breakdown">
+    @for (cat of categories; track cat.key; let last = $last) {
+      <div class="cat-row">
+        <div class="cat-row__top">
+          <span class="cat-dot" [style.background]="cat.color"></span>
+          <span class="cat-row__name">{{ catName(cat) }}</span>
+          <app-kr [v]="cat.amount" [size]="14"/>
+        </div>
+        <div class="cat-row__bar-row">
+          <div class="cat-bar-track">
+            <div class="cat-bar-fill" [style.width.%]="pct(cat.amount)" [style.background]="cat.color"></div>
+          </div>
+          <span class="cat-row__pct">{{ pct(cat.amount) }}% · {{ cat.count }} {{ lang.t('kv.', 'rc.') }}</span>
+        </div>
+      </div>
+      @if (!last) { <div class="hairline" style="margin: 0 12px 0 34px"></div> }
+    }
+  </div>
+
+  <!-- Top items -->
+  <div class="section-header">
+    <span class="label">{{ lang.t('Mest köpta varor', 'Most bought items') }}</span>
+  </div>
+
+  <div class="top-items">
+    @for (item of topItems; track $index; let last = $last) {
+      <div class="top-item">
+        <div class="rank">{{ $index + 1 }}</div>
+        <div class="top-item__name">{{ itemName(item) }}</div>
+        <span class="count-label">{{ item.count }}×</span>
+        <app-kr [v]="item.total" [size]="13"/>
+      </div>
+      @if (!last) { <div class="hairline" style="margin: 0 12px 0 46px"></div> }
+    }
+  </div>
+
+  <!-- Insight callout -->
+  <div class="insight-card">
+    <div class="insight-card__header">
+      <app-icon name="sparkle" [size]="16" color="#D9F29A"/>
+      <span class="insight-card__label">{{ lang.t('Observation', 'Observation') }}</span>
+    </div>
+    <p class="insight-card__text">
+      {{ lang.t(
+        'Du handlade kaffe 4 gånger i april — ett nytt 1-kg-paket skulle sparat ungefär 112 kr.',
+        'You bought coffee 4 times in April — a new 1kg pack would have saved around 112 kr.'
+      ) }}
+    </p>
+  </div>
+
+  <div style="height:28px"></div>
+</div>

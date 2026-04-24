@@ -1,0 +1,86 @@
+<div class="auth-screen">
+  <button class="lang-toggle" type="button" (click)="toggleLang()">
+    <span [class.lang-toggle__active]="lang.lang() === 'sv'">SV</span>
+    <span class="lang-toggle__sep">·</span>
+    <span [class.lang-toggle__active]="lang.lang() === 'en'">EN</span>
+  </button>
+
+  <div class="brand">
+    <div class="brand__mark">K</div>
+    <div class="brand__wordmark">Kvittoskan</div>
+    <div class="brand__tagline">
+      {{ lang.t('Dina kvitton, snyggt ordnade.', 'Your receipts, beautifully organised.') }}
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="tabs">
+      <button type="button"
+              class="tab" [class.tab--active]="isLogin()"
+              (click)="setMode('login')">
+        {{ lang.t('Logga in', 'Sign in') }}
+      </button>
+      <button type="button"
+              class="tab" [class.tab--active]="!isLogin()"
+              (click)="setMode('register')">
+        {{ lang.t('Skapa konto', 'Create account') }}
+      </button>
+    </div>
+
+    <form class="form" (ngSubmit)="submit()">
+      @if (!isLogin()) {
+        <label class="field">
+          <span class="field__label">{{ lang.t('Namn', 'Name') }}</span>
+          <input class="field__input" type="text" name="displayName"
+                 [ngModel]="displayName()" (ngModelChange)="displayName.set($event)"
+                 autocomplete="name" required />
+        </label>
+      }
+
+      <label class="field">
+        <span class="field__label">{{ lang.t('E-post', 'Email') }}</span>
+        <input class="field__input" type="email" name="email"
+               [ngModel]="email()" (ngModelChange)="email.set($event)"
+               autocomplete="email" required />
+      </label>
+
+      <label class="field">
+        <span class="field__label">{{ lang.t('Lösenord', 'Password') }}</span>
+        <input class="field__input" type="password" name="password"
+               [ngModel]="password()" (ngModelChange)="password.set($event)"
+               [attr.autocomplete]="isLogin() ? 'current-password' : 'new-password'"
+               minlength="8" required />
+        @if (!isLogin()) {
+          <span class="field__hint">
+            {{ lang.t('Minst 8 tecken', 'At least 8 characters') }}
+          </span>
+        }
+      </label>
+
+      @if (error()) {
+        <div class="error" role="alert">
+          <span class="error__dot"></span>
+          <span>{{ error() }}</span>
+        </div>
+      }
+
+      <button type="submit" class="submit"
+              [disabled]="!canSubmit()">
+        @if (loading()) {
+          <span class="submit__spinner"></span>
+        }
+        <span>
+          @if (isLogin()) {
+            {{ loading() ? lang.t('Loggar in…', 'Signing in…') : lang.t('Logga in', 'Sign in') }}
+          } @else {
+            {{ loading() ? lang.t('Skapar konto…', 'Creating account…') : lang.t('Skapa konto', 'Create account') }}
+          }
+        </span>
+      </button>
+    </form>
+  </div>
+
+  <div class="legal">
+    {{ lang.t('Genom att fortsätta godkänner du våra villkor.', 'By continuing you agree to our terms.') }}
+  </div>
+</div>
